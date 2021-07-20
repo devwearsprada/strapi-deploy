@@ -1,9 +1,10 @@
 const fs = require('fs')
+const path = require('path')
 const http = require('http')
 const crypto = require('crypto')
 const exec = require('child_process').exec
 
-const json = fs.readFileSync('./services.json', 'utf-8')
+const json = fs.readFileSync(path.resolve(__dirname, 'services.json'), 'utf-8')
 const services = JSON.parse(json)
 
 const SERVICES_ROOT = '~/web/'
