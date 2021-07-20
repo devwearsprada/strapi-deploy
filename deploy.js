@@ -1,7 +1,6 @@
 const fs = require('fs')
 const http = require('http')
 const crypto = require('crypto')
-const { exec } = require('child_process')
 const exec = require('child_process').exec
 
 const json = fs.readFileSync('./services.json', 'utf-8')
