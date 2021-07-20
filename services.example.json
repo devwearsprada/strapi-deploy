@@ -1,0 +1,8 @@
+[
+  {
+    "name": "service",
+    "repo": "~/path/to/repo",
+    "secret": "SECRET",
+    "strapi_cmd": "yarn install && NODE_ENV=production NODE_OPTIONS='--max-old-space-size=1536'"
+  }
+]

@@ -1,10 +1,14 @@
 const fs = require('fs')
 const http = require('http')
 const crypto = require('crypto')
-// const exec = require('child_process').exec
+const { exec } = require('child_process')
+const exec = require('child_process').exec
 
 const json = fs.readFileSync('./services.json', 'utf-8')
 const services = JSON.parse(json)
+
+const SERVICES_ROOT = '~/web/'
+const PM2_CMD = `cd ${SERVICES_ROOT} && pm2 startOrRestart ecosystem.config.js`
 
 http.createServer((req, res) => {
   req.on('data', (chunk) => {
@@ -22,12 +26,18 @@ http.createServer((req, res) => {
     const githubSignature = req.headers['x-hub-signature']
     const match = services.filter((service) => { return service.sha == githubSignature })
 
-    console.log(match.length > 0)
-    console.log(match)
-    // if (req.headers['x-hub-signature'] == sig) {
-    //   console.log('match')
-    // }
-  })
+    if (match) {
+      exec(`cd ${match.repo} && git pull && ${match.strapi_cmd} && ${PM2_CMD}`, (error, stdout, stderr) => {
+        if (error) {
+          console.log(`exec error: ${error}`)
+          return
+        }
+        console.log(`stdout: ${stdout}`)
+        console.log(`stderr: ${stderr}`)
+      })
+    }
 
+  })
   res.end()
-}).listen(8080)
+})
+  .listen(8080)
