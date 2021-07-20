@@ -1,0 +1,9 @@
+{
+  "name": "strapi-deploy",
+  "version": "1.0.0",
+  "description": "Deploy Strapi projects with Github webhooks",
+  "main": "deploy.js",
+  "author": "devwearsprada <borissmeenk@protonmail.com>",
+  "license": "MIT",
+  "private": false
+}
