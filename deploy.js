@@ -27,8 +27,8 @@ http.createServer((req, res) => {
 
     console.log(match)
     if (match.length > 0) {
-      console.log(match);
-      exec(`cd ${match.repo} && git pull && ${match.strapi_cmd} && ${PM2_CMD}`, (error, stdout, stderr) => {
+      console.log(match[0]);
+      exec(`cd ${match[0].repo} && git pull && ${match[0].strapi_cmd} && ${PM2_CMD}`, (error, stdout, stderr) => {
         if (error) {
           console.log(`exec error: ${error}`)
           return
