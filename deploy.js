@@ -25,7 +25,9 @@ http.createServer((req, res) => {
     const githubSignature = req.headers['x-hub-signature']
     const match = services.filter((service) => { return service.sha == githubSignature })
 
-    if (match) {
+    console.log(match)
+    if (match.length > 0) {
+      console.log(match);
       exec(`cd ${match.repo} && git pull && ${match.strapi_cmd} && ${PM2_CMD}`, (error, stdout, stderr) => {
         if (error) {
           console.log(`exec error: ${error}`)
